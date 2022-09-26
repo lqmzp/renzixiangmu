@@ -14,7 +14,6 @@ const name = defaultSettings.title || 'vue Admin Template' // page title
 // You can change the port by the following methods:
 // port = 9528 npm run dev OR npm run dev --port = 9528
 const port = process.env.port || process.env.npm_config_port || 9528 // dev port
-console.log(process.env)
 // All configuration item explanations can be find in https://cli.vuejs.org/config/
 module.exports = {
   /**
@@ -35,6 +34,15 @@ module.exports = {
     overlay: {
       warnings: false,
       errors: true
+    },
+    // 该项目中代理跨域的配置
+    proxy: {
+      // 当我们的本地的请求 有/api的时候，就会代理我们的请求地址向另外一个服务器发出请求
+      '/api': {
+        target: 'http://ihrm-java.itheima.net/',
+        // target: 'http://42.192.129.12:3001/', // 跨域请求的地址
+        changeOrigin: true // 只有这个值为true的情况下 才表示开启跨域
+      }
     }
     // before: require('./mock/mock-server.js')
   },
