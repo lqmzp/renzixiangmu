@@ -14,6 +14,10 @@ export default {
     ...mapGetters([
       'name'
     ])
+  },
+  created() {
+    // console.log(1)
+    // this.$store.dispatch('user/getUserInfos')
   }
 }
 </script>

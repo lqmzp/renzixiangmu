@@ -22,3 +22,9 @@ export function logout() {
     method: 'post'
   })
 }
+export function getUserInfo() {
+  return request({
+    url: '/sys/profile',
+    method: 'post'
+  })
+}
