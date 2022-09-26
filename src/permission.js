@@ -11,8 +11,8 @@ router.beforeEach(async(to, from, next) => {
   // next(false) 中断当前的导航
   // next('/') 或者 next({ path: '/' })  跳转到一个不同的地址
   //  当前的导航被中断，然后进行一个新的导航
-  console.log(to)
-  console.log(from)
+  // console.log(to)
+  // console.log(from)
   if (store.getters.token) {
     if (!store.getters.userId) {
       await store.dispatch('user/getUserInfos')

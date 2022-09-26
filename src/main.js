@@ -15,6 +15,11 @@ import router from './router'
 import '@/icons' // icon
 import '@/permission' // permission control
 
+import * as disrective from '@/disrective'
+console.log(disrective)
+Object.keys(disrective).forEach((ele) => {
+  Vue.directive(ele, disrective[ele])
+})
 /**
  * If you don't want to use mock-server
  * you want to use MockJs for mock api

@@ -28,3 +28,8 @@ export function getUserInfo() {
     method: 'post'
   })
 }
+export function getUserDetailById(id) {
+  return request({
+    url: `/sys/user/${id}`
+  })
+}

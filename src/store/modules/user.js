@@ -1,5 +1,5 @@
 import { login } from '@/api/login'
-import { getUserInfo } from '@/api/user'
+import { getUserInfo, getUserDetailById } from '@/api/user'
 export default {
   namespaced: true,
   state: {
@@ -29,7 +29,9 @@ export default {
     async getUserInfos({ commit }) { // 哪里想用 哪掉
       // 发送请求获取用户token
       const res = await getUserInfo() // 获取返回值
-      commit('SET_USER_INFO', res) // 将整个的个人信息设置到用户的vuex数据中
+      const res1 = await getUserDetailById(res.userId)
+      const result = { ...res, ...res1 }
+      commit('SET_USER_INFO', result) // 将整个的个人信息设置到用户的vuex数据中
       // return result // 这里为什么要返回 为后面埋下伏笔
     }
   }
