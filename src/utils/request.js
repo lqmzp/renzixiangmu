@@ -1,13 +1,29 @@
+import router from '@/router'
 import store from '@/store'
 import axios from 'axios'
 import { Message } from 'element-ui'
-
+const TimeOut = 3600
+function IsCheckTimeOut() {
+  const currentTime = Date.now()
+  const TimeStamp = (currentTime - store.getters.hrsaasTime) / 1000
+  // 当store.getters.hrsaasTime为0的时候TimeStamp>0
+  console.log(TimeStamp)
+  console.log(store.getters.hrsaasTime)
+  // console.log(1)
+  return TimeStamp > TimeOut
+}
 const service = axios.create({
   baseURL: process.env.VUE_APP_BASE_API,
   timeout: 5000
 })
 service.interceptors.request.use(config => {
   if (store.getters.token) {
+    if (IsCheckTimeOut()) {
+      console.log(2)
+      store.dispatch('user/logout')
+      router.push('/login')
+      return Promise.reject(new Error('token超时'))
+    }
     config.headers.Authorization = `Bearer ${store.getters.token}`
   }
   return config
@@ -22,7 +38,13 @@ service.interceptors.response.use(response => {
   Message.error(message)
   return Promise.reject(new Error(message))
 }, error => {
-  Message.error(error.message)
+  console.log(error)
+  if (error.response && error.response.status === 401) {
+    store.dispatch('user/logout')
+    router.push('/login')
+  } else {
+    Message.error(error.message)
+  }
   return Promise.reject(error)
 })
 
