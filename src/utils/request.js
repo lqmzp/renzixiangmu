@@ -7,8 +7,8 @@ function IsCheckTimeOut() {
   const currentTime = Date.now()
   const TimeStamp = (currentTime - store.getters.hrsaasTime) / 1000
   // 当store.getters.hrsaasTime为0的时候TimeStamp>0
-  console.log(TimeStamp)
-  console.log(store.getters.hrsaasTime)
+  // console.log(TimeStamp)
+  // console.log(store.getters.hrsaasTime)
   // console.log(1)
   return TimeStamp > TimeOut
 }
